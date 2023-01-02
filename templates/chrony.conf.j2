@@ -1,0 +1,28 @@
+{% if chrony_ntp_servers|length > 0 %}
+# List of NTP servers to use
+{% for server in chrony_ntp_servers %}
+server {{ server }}
+{% endfor %}
+{% endif %}
+
+{% if chrony_ntp_pools|length > 0 %}
+# List of NTP pools to use
+{% for pool in chrony_ntp_pools %}
+pool {{ pool }}
+{% endfor %}
+{% endif %}
+
+keyfile /etc/chrony/chrony.keys
+driftfile /var/lib/chrony/chrony.drift
+logdir /var/log/chrony
+maxupdateskew 100.0
+rtcsync
+makestep 1 3
+
+{% if chrony_allow|length > 0 %}
+# Allow NTP requests from these clients:
+# (chrony will then act as a NTP server for these)
+{% for addr in chrony_allow %}
+allow {{ addr }}
+{% endfor %}
+{% endif %}

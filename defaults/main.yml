@@ -1,0 +1,23 @@
+---
+# defaults file for ansible-role-chrony
+# @var chrony_service_name: description: chrony service name
+chrony_service_name: chronyd
+
+# @var chrony_ntp_servers:description: chrony configuration: ntp servers
+chrony_ntp_servers: []
+
+# @var chrony_ntp_pools:description: chrony configuration: ntp pools
+chrony_ntp_pools:
+  - "ntp.ubuntu.com        iburst maxsources 4"
+  - "0.ubuntu.pool.ntp.org iburst maxsources 1"
+  - "1.ubuntu.pool.ntp.org iburst maxsources 1"
+  - "2.ubuntu.pool.ntp.org iburst maxsources 2"
+
+# @var chrony_all:description: >
+# ip prefixed which are allow to use this server as time server
+#
+# Example:
+#
+# chrony_allow: ["192.168.0.0/24", "192.168.1.0/24"]
+# @end
+chrony_allow: []
